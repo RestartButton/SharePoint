@@ -7,6 +7,13 @@ ws.on('message', (WebSocketMessage) => {
     cursor.style.transform = `translate(${messageBody.x}px, ${messageBody.y}px)`;
 });
 
+ws.on('close', (data) => {
+    const messageBody = JSON.parse(data);
+    const sender = messageBody.sender;
+    const existing = document.querySelector(`[data-sender='${sender}']`);
+    if(existing) existing.remove();
+});
+
 document.onmousemove = (evt) => {
     const messageBody = { x: evt.clientX, y: evt.clientY };
     ws.emit('message', JSON.stringify(messageBody));

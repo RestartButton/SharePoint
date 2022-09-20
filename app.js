@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const publicDirectory = path.join(__dirname, './client/assets');
 app.use(serveStatic(publicDirectory));
 
-var indexRouter = require('./client/routes/index-route');
+var indexRouter = require('./routes/index-route');
 
 app.use('/', indexRouter);
 

@@ -23,6 +23,14 @@ module.exports = (server) => {
         });
 
         ws.on('disconnect', () => {
+            var message = {};
+            const metadata = clients.get(ws);
+            message.sender = metadata.id;
+            message.color = metadata.color;
+
+            const outbound = JSON.stringify(message);
+
+            io.emit('close', outbound);
             clients.delete(ws);
             console.log(`onClose: client disconnected!`);
         });
